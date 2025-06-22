@@ -2,15 +2,17 @@
 
 This project demonstrates the integration of **Google Advanced Developer Kit (ADK)** with the **Model Context Protocol (MCP)** to explore and interact with a local filesystem through a conversational LLM agent.
 
-It includes two modes: a **terminal-based CLI** (`agent.py`) and a **modern Streamlit web UI** (`agent-ui.py`).
+It includes two modes: a **terminal-based CLI** (`main.py`) and a **modern Streamlit web UI** (`main-ui.py`).
 
 ---
 
 ## 📁 Project Structure
 ```
 google-adk-and-mcp/
-│ agent.py # Terminal interface for multi-turn chat
-| agent-ui.py # Streamlit web interface
+│ main.py # Terminal interface for multi-turn chat
+| main-ui.py # Streamlit web interface
+|--/agents/
+    | filesystem_agent.py # Filesystem agent class
 | .env # Contains ABSOLUTE_PATH to set root directory and the GOOGLE_API_KEY to use Gemini model 
 | requirements.txt
 ```
@@ -23,13 +25,13 @@ Both versions use:
 - **MCPToolset** with `@modelcontextprotocol/server-filesystem`
 - **LlmAgent** using Gemini 2.0 Flash
 
-### ✳️ `agent.py` – CLI Version
+### ✳️ `main.py` – CLI Version
 A terminal-based interactive agent:
 - Input/output via standard input
 - Displays detailed function calls and responses
 - Ideal for quickly testing LLM logic and file access
 
-### 🌐 `agent-ui.py` – Streamlit UI Version
+### 🌐 `main-ui.py` – Streamlit UI Version
 A modern, ChatGPT-like web interface:
 - Persistent session chat (`st.session_state`)
 - Messages displayed above the input
@@ -76,11 +78,11 @@ pip install -r requirements.txt
 ## 🚀 How to Run
 #### CLI Version
 ```
-python agent.py
+python main.py
 ```
 #### Streamlit UI Version
 ```
-streamlit run agent-ui.py
+streamlit run main-ui.py
 ```
 Then open your browser at the URL provided (usually http://localhost:8501).
 
