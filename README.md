@@ -1,20 +1,31 @@
-# 💬 Google ADK + MCP  (Filesystem Agent AI)
+# 💬 Google ADK + MCP (Filesystem & Custom Webpage Agents AI)
+This project demonstrates the integration of **Google Advanced Developer Kit (ADK)** with the **Model Context Protocol (MCP)** to build conversational AI agents capable of:
 
-This project demonstrates the integration of **Google Advanced Developer Kit (ADK)** with the **Model Context Protocol (MCP)** to explore and interact with a local filesystem through a conversational LLM agent.
+✅ Navigating and interacting with the local filesystem
+✅ Loading webpages via a custom MCP server exposing ADK tools
 
-It includes two modes: a **terminal-based CLI** (`main.py`) and a **modern Streamlit web UI** (`main-ui.py`).
+- It includes:
+- A terminal-based CLI (main.py, servers/main.py)
+- A Streamlit Web UI (main-ui.py)
 
 ---
 
 ## 📁 Project Structure
 ```
 google-adk-and-mcp/
-│ main.py # Terminal interface for multi-turn chat
-| main-ui.py # Streamlit web interface
-|--/agents/
-    | filesystem_agent.py # Filesystem agent class
-| .env # Contains ABSOLUTE_PATH to set root directory and the GOOGLE_API_KEY to use Gemini model 
-| requirements.txt
+├─ .env                   
+├─ requirements.txt
+│
+├─ agents/
+│   ├─ filesystem_agent.py
+│   ├─ load_webpage_agent.py
+│   ├─ main.py
+│   ├─ main-ui.py
+│
+├─ servers/
+│   ├─ main.py
+│   ├─ mcp_server.py
+
 ```
 ---
 
@@ -25,18 +36,32 @@ Both versions use:
 - **MCPToolset** with `@modelcontextprotocol/server-filesystem`
 - **LlmAgent** using Gemini 2.0 Flash
 
-### ✳️ `main.py` – CLI Version
-A terminal-based interactive agent:
-- Input/output via standard input
-- Displays detailed function calls and responses
-- Ideal for quickly testing LLM logic and file access
+---
 
-### 🌐 `main-ui.py` – Streamlit UI Version
-A modern, ChatGPT-like web interface:
-- Persistent session chat (`st.session_state`)
-- Messages displayed above the input
-- Centered input box
-- Nicely formatted LLM and function responses
+## ✨ Available Agents
+
+#### 📂 Filesystem Agent  
+Interact with your local filesystem conversationally.
+
+- Lists directories  
+- Navigates folders  
+- Maintains stateful chat  
+
+Two access modes:  
+- `main.py`: Terminal chat  
+- `main-ui.py`: Streamlit Chat UI  
+
+---
+
+#### 🌐 Load Web Page Agent (Custom MCP Server)  
+Leverages a custom Python MCP server (`adk_mcp_server.py`) to expose ADK tools like `load_web_page`.
+
+- MCP server runs locally, communicating via stdin/stdout  
+- Agent connects and wraps ADK functions for conversational use  
+
+Access via:  
+- `servers/main.py`: Terminal chat interface
+
 
 ---
 
@@ -53,6 +78,8 @@ ABSOLUTE_PATH=/absolute/path/to/your/folder
 Make sure the path points to a real, accessible folder (e.g., ~/Documents).
 
 GOOGLE_API_KEY=<YOUR_API_KEY>
+
+MCP_SERVER_PATH=/absolute/path/to/mcp_server.py  # Custom MCP Server script
 ```
 
 ## 📦 Setup Instructions
@@ -78,11 +105,12 @@ pip install -r requirements.txt
 ## 🚀 How to Run
 #### CLI Version
 ```
-python main.py
+python agents/main.py
+python -m servers.main 
 ```
 #### Streamlit UI Version
 ```
-streamlit run main-ui.py
+streamlit run agents/main-ui.py
 ```
 Then open your browser at the URL provided (usually http://localhost:8501).
 

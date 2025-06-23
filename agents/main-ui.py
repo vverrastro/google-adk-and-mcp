@@ -2,9 +2,9 @@ import os
 import streamlit as st
 from dotenv import load_dotenv
 import asyncio
-from agents.filesystem_agent import FilesystemAgent
+from filesystem_agent import FilesystemAgent
 
-# Load environment variables
+# Load environment variables from .env file
 load_dotenv()
 absolute_path = os.getenv("ABSOLUTE_PATH")
 

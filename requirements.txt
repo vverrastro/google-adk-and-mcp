@@ -2,3 +2,5 @@ streamlit>=1.46.0
 python-dotenv>=1.1.0
 google-adk>=1.4.2
 google-genai>=1.21.1
+beautifulsoup4>=4.13.4
+lxml>=5.4.0
